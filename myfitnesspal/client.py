@@ -730,8 +730,10 @@ class Client(MFPBase):
             raise ValueError("Could not load any results for the given category & name")
 
         # Remove entries that are not within the dates specified
+        # TL: date from report.keys() is of type datetime.datetime
+        # and must be converted to type datetime.date
         for date in list(report.keys()):
-            if not upper_bound >= date >= lower_bound:
+            if not upper_bound >= date.date() >= lower_bound:
                 del report[date]
 
         return report
